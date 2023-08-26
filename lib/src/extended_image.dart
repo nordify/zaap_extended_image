@@ -1065,7 +1065,7 @@ class _ExtendedImageState extends State<ExtendedImage>
     super.didUpdateWidget(oldWidget);
     if (_isListeningToStream &&
         widget.handleLoadingProgress != oldWidget.handleLoadingProgress) {
-      final ImageStreamListener oldListener = _getListener();
+      final ImageStreamListener oldListener = _getListener(); 
       _imageStream!.addListener(_getListener(recreateListener: true));
       _imageStream!.removeListener(oldListener);
     }
