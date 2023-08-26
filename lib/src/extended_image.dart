@@ -21,6 +21,7 @@ class ExtendedImage extends StatefulWidget {
   ExtendedImage({
     Key? key,
     required this.image,
+    this.loadingColor,
     this.semanticLabel,
     this.excludeFromSemantics = false,
     this.width,
@@ -194,6 +195,7 @@ class ExtendedImage extends StatefulWidget {
     String name, {
     Key? key,
     AssetBundle? bundle,
+    this.loadingColor,
     this.semanticLabel,
     this.excludeFromSemantics = false,
     double? scale,
@@ -293,6 +295,7 @@ class ExtendedImage extends StatefulWidget {
     File file, {
     Key? key,
     double scale = 1.0,
+    this.loadingColor,
     this.semanticLabel,
     this.excludeFromSemantics = false,
     this.width,
@@ -384,6 +387,7 @@ class ExtendedImage extends StatefulWidget {
     Uint8List bytes, {
     Key? key,
     double scale = 1.0,
+    this.loadingColor,
     this.semanticLabel,
     this.excludeFromSemantics = false,
     this.width,
@@ -452,6 +456,7 @@ class ExtendedImage extends StatefulWidget {
   ExtendedImage.network(
     String url, {
     Key? key,
+    this.loadingColor,
     this.semanticLabel,
     this.excludeFromSemantics = false,
     this.width,
@@ -657,6 +662,8 @@ class ExtendedImage extends StatefulWidget {
   /// and height if the exact image dimensions are not known in advance.
   final double? height;
 
+  final Color? loadingColor;
+
   final BoxConstraints? constraints;
 
   /// If non-null, this color is blended with each image pixel using [colorBlendMode].
@@ -841,6 +848,7 @@ class ExtendedImage extends StatefulWidget {
 
   /// default state widget builder
   static Widget Function(
+    Color? loadingColor,
     BuildContext context,
     ExtendedImageState state,
   ) globalStateWidgetBuilder = (
@@ -849,19 +857,7 @@ class ExtendedImage extends StatefulWidget {
   ) {
     switch (state.extendedImageLoadState) {
       case LoadState.loading:
-        return Container(
-          alignment: Alignment.center,
-          child: Theme.of(context).platform == TargetPlatform.iOS
-              ? const CupertinoActivityIndicator(
-                  animating: true,
-                  radius: 16.0,
-                )
-              : CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).primaryColor),
-                ),
-        );
+        return Container(color: loadingColor ?? Colors.grey.shade850);
 
       case LoadState.completed:
         return state.completedWidget;
@@ -953,7 +949,8 @@ class _ExtendedImageState extends State<ExtendedImage>
 
     if (current == null) {
       if (widget.enableLoadState) {
-        current = ExtendedImage.globalStateWidgetBuilder(context, this);
+        current = ExtendedImage.globalStateWidgetBuilder(
+            widget.loadingColor, context, this);
       } else {
         if (_loadState == LoadState.completed) {
           current = _getCompletedWidget();
