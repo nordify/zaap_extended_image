@@ -848,10 +848,10 @@ class ExtendedImage extends StatefulWidget {
 
   /// default state widget builder
   static Widget Function(
-    Color? loadingColor,
     BuildContext context,
     ExtendedImageState state,
   ) globalStateWidgetBuilder = (
+    Color? loadingColor,
     BuildContext context,
     ExtendedImageState state,
   ) {
@@ -1065,7 +1065,7 @@ class _ExtendedImageState extends State<ExtendedImage>
     super.didUpdateWidget(oldWidget);
     if (_isListeningToStream &&
         widget.handleLoadingProgress != oldWidget.handleLoadingProgress) {
-      final ImageStreamListener oldListener = _getListener(); 
+      final ImageStreamListener oldListener = _getListener();
       _imageStream!.addListener(_getListener(recreateListener: true));
       _imageStream!.removeListener(oldListener);
     }
