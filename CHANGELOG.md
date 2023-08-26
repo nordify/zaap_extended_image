@@ -1,14 +1,3 @@
-## 8.1.0
-
-* Migrate to 3.13.0 
-* Breaking change: remove preloadPagesCount of ExtendedImageGesturePageView. The cacheExtent of Viewport should be 0. 
-* Add demo to instead of preloadPagesCount of ExtendedImageGesturePageView
-
-
-## 8.0.2
-
-* [EditorCropLayerPainter.paintMask] not use BlendMode.clear now, due to '--web-renderer html' is not support.
-
 ## 8.0.1
 
 * Dart sdk: '>=2.18.0 <4.0.0'
