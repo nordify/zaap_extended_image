@@ -848,15 +848,17 @@ class ExtendedImage extends StatefulWidget {
 
   /// default state widget builder
   static Widget Function(
+    Color? loadingColor,
     BuildContext context,
     ExtendedImageState state,
   ) globalStateWidgetBuilder = (
+    Color? loadingColor,
     BuildContext context,
     ExtendedImageState state,
   ) {
     switch (state.extendedImageLoadState) {
       case LoadState.loading:
-        return Container(color: state.loadingColor ?? Color.fromRGBO(30, 30, 30, 1));
+        return Container(color: loadingColor ?? Color.fromRGBO(30, 30, 30, 1));
 
       case LoadState.completed:
         return state.completedWidget;
@@ -949,7 +951,7 @@ class _ExtendedImageState extends State<ExtendedImage>
     if (current == null) {
       if (widget.enableLoadState) {
         current = ExtendedImage.globalStateWidgetBuilder(
-            context, this);
+            widget.loadingColor, context, this);
       } else {
         if (_loadState == LoadState.completed) {
           current = _getCompletedWidget();
