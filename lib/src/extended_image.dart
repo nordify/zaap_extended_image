@@ -857,7 +857,7 @@ class ExtendedImage extends StatefulWidget {
   ) {
     switch (state.extendedImageLoadState) {
       case LoadState.loading:
-        return Container(color: loadingColor ?? Colors.grey.shade850);
+        return Container(color: loadingColor ?? Color.fromRGBO(30, 30, 30, 1));
 
       case LoadState.completed:
         return state.completedWidget;
